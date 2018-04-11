@@ -7,8 +7,8 @@ use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\Utility\Inflector;
 use Cake\View\View;
-use PHPExcel;
-use PHPExcel_IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * @package  Cake.View
@@ -68,7 +68,7 @@ class ExcelView extends View
             $response->type('xlsx');
         }
 
-        $this->PhpExcel = new PHPExcel();
+        $this->PhpExcel = new Spreadsheet();
     }
 
     /**
@@ -101,7 +101,7 @@ class ExcelView extends View
     {
         ob_start();
 
-        $writer = PHPExcel_IOFactory::createWriter($this->PhpExcel, 'Excel2007');
+        $writer = IOFactory::createWriter($this->PhpExcel, 'Xlsx');
 
         if (!isset($writer)) {
             throw new Exception('Excel writer not found');
